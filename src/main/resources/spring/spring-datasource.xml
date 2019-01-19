@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="appDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="driverClassName" value="${app.jdbc.driverClassName}"/>
+        <property name="url" value="${app.jdbc.url}"/>
+        <property name="username" value="${app.jdbc.username}"/>
+        <property name="password" value="${app.jdbc.password}"/>
+
+        <property name="initialSize" value="${app.dataSource.initialSize}"/>
+        <property name="minIdle" value="${app.dataSource.minIdle}"/>
+        <property name="maxActive" value="{}"/>
+        <property name="maxWait" value="{}"/>
+        <property name="timeBetweenEvictionRunsMillis" value="{}"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="testOnBorrow" value="false"/>
+        <property name="testOnReturn" value="false"/>
+
+        <property name="validationQuery" value=""/>
+
+
+    </bean>
+
+    <bean id="appTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="appDataSource"/>
+    </bean>
+
+    <bean id="appSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="appDataSource"/>
+
+        <property name="typeAliasesPackage" value="wt.model.po"/>
+
+        <property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
+        <property name="mapperLocations" value="classpath:mybatis/mapper/*.xml"/>
+    </bean>
+</beans>
