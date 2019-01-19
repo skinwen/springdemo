@@ -6,7 +6,7 @@
 
   <groupId>com.wt</groupId>
   <artifactId>springdemo</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.0-SNAPSHOT</version>
   <packaging>war</packaging>
 
   <name>springdemo Maven Webapp</name>
@@ -93,6 +93,15 @@
         <artifactId>logback-ext-spring</artifactId>
         <version>0.1.4</version>
       </dependency>
+
+
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>1.16.18</version>
+        <scope>provided</scope>
+      </dependency>
+
     </dependencies>
 
   <build>
