@@ -6,4 +6,5 @@ package wt.consts;
 public interface SessionConst {
     String RANDOMCODEKEY = "RANDOMVALIDATECODEKEY";//放到session中的key
 
+    String USER_ID = "USER_ID";
 }

@@ -3,6 +3,7 @@ package wt.utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Base64Utils;
+import wt.consts.SessionConst;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
@@ -18,8 +19,6 @@ import java.util.Random;
  */
 public class CaptchaCodeUtil {
 
-
-    public static final String RANDOMCODEKEY = "RANDOMVALIDATECODEKEY";//放到session中的key
     private String randString = "0123456789";//随机产生只有数字的字符串 private String
     //private String randString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";//随机产生只有字母的字符串
     //private String randString = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";//随机产生数字与字母组合的字符串
@@ -75,8 +74,8 @@ public class CaptchaCodeUtil {
         }
         logger.info(randomString);
         //将生成的随机字符串保存到session中
-        session.removeAttribute(RANDOMCODEKEY);
-        session.setAttribute(RANDOMCODEKEY, randomString);
+        session.removeAttribute(SessionConst.RANDOMCODEKEY);
+        session.setAttribute(SessionConst.RANDOMCODEKEY, randomString);
         g.dispose();
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ImageIO.write(image, "PNG", byteArrayOutputStream);
