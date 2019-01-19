@@ -10,7 +10,7 @@
         upt_dat uptDat
     </sql>
 
-    <select id="findByPage" parameterType="UserInfo">
+    <select id="findByPage" parameterType="UserInfo" resultType="UserInfo">
         SELECT
         <include refid="allColumn"/>
         FROM user_info
@@ -25,7 +25,7 @@
         order by crt_dat desc
     </select>
 
-    <select id="findByMobileNo">
+    <select id="findByMobileNo" resultType="UserInfo">
         SELECT
         <include refid="allColumn"/>
         FROM user_info where mobile_no=#{mobileNo}

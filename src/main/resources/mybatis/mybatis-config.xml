@@ -15,7 +15,7 @@
 
         <setting name="useColumnLabel" value="true"/>
 
-        <setting name="autoMappingBehavior" value="true"/>
+        <!--<setting name="autoMappingBehavior" value="true"/>-->
 
         <setting name="defaultStatementTimeout" value="25000"/>
 
