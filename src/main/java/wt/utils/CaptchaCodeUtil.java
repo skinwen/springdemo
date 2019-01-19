@@ -2,7 +2,6 @@ package wt.utils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.util.Base64Utils;
 
 import javax.imageio.ImageIO;
@@ -17,7 +16,7 @@ import java.util.Random;
 /**
  * Created by Administrator on 2019/1/19 0019.
  */
-public class CaptcheCodeUtil {
+public class CaptchaCodeUtil {
 
 
     public static final String RANDOMCODEKEY = "RANDOMVALIDATECODEKEY";//放到session中的key
@@ -29,7 +28,7 @@ public class CaptcheCodeUtil {
     private int lineSize = 40;// 干扰线数量
     private int stringNum = 4;// 随机产生字符数量
 
-    private static final Logger logger = LoggerFactory.getLogger(CaptcheCodeUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(CaptchaCodeUtil.class);
 
     private Random random = new Random();
 
@@ -58,7 +57,7 @@ public class CaptcheCodeUtil {
      * 生成随机图片
      */
     public String getRandcode(HttpServletRequest request) throws IOException {
-//        HttpSession session = request.getSession();
+        HttpSession session = request.getSession();
         // BufferedImage类是具有缓冲区的Image类,Image类是用于描述图像信息的类
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_BGR);
         Graphics g = image.getGraphics();// 产生Image对象的Graphics对象,改对象可以在图像上进行各种绘制操作
@@ -76,8 +75,8 @@ public class CaptcheCodeUtil {
         }
         logger.info(randomString);
         //将生成的随机字符串保存到session中
-//        session.removeAttribute(RANDOMCODEKEY);
-//        session.setAttribute(RANDOMCODEKEY, randomString);
+        session.removeAttribute(RANDOMCODEKEY);
+        session.setAttribute(RANDOMCODEKEY, randomString);
         g.dispose();
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ImageIO.write(image, "PNG", byteArrayOutputStream);
@@ -120,8 +119,8 @@ public class CaptcheCodeUtil {
     }
 
     public static void main(String[] args) throws IOException {
-        CaptcheCodeUtil captcheCodeUtil = new CaptcheCodeUtil();
-        String res = captcheCodeUtil.getRandcode(null);
+        CaptchaCodeUtil captchaCodeUtil = new CaptchaCodeUtil();
+        String res = captchaCodeUtil.getRandcode(null);
         System.out.println(res);
     }
 }

@@ -1,14 +1,12 @@
 package wt.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import wt.model.po.UserInfo;
-import wt.model.po.UserPo;
 import wt.service.UserService;
-import wt.utils.CaptcheCodeUtil;
+import wt.utils.CaptchaCodeUtil;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -29,8 +27,8 @@ public class UserController extends AbstractController {
     @RequestMapping(value = "/getVerify", method = RequestMethod.GET, name = "获取图片验证码")
     @ResponseBody
     public String getVerify(HttpServletRequest request) throws IOException {
-        CaptcheCodeUtil captcheCodeUtil = new CaptcheCodeUtil();
-        return captcheCodeUtil.getRandcode(request);//输出验证码图片方法
+        CaptchaCodeUtil captchaCodeUtil = new CaptchaCodeUtil();
+        return captchaCodeUtil.getRandcode(request);//输出验证码图片方法
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST, name = "注册用户")
