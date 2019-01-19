@@ -61,7 +61,7 @@ public class GlobalMessageCover extends FastJsonHttpMessageConverter implements 
         } catch (IOException e1) {
             e.printStackTrace();
         }
-        return null;
+        return new ModelAndView();
     }
 
     private static class Result implements Serializable {

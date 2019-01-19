@@ -1,6 +1,7 @@
 package wt.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -34,8 +35,13 @@ public class UserController extends AbstractController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST, name = "注册用户")
     @ResponseBody
-    public void login(UserInfo userPo) {
+    public void register(UserInfo userPo) {
 
     }
 
+    @RequestMapping(value = "/login", method = RequestMethod.POST, name = "登录")
+    @ResponseBody
+    public void login(UserInfo userPo){
+
+    }
 }
