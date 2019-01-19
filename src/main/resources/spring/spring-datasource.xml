@@ -11,14 +11,16 @@
 
         <property name="initialSize" value="${app.dataSource.initialSize}"/>
         <property name="minIdle" value="${app.dataSource.minIdle}"/>
-        <property name="maxActive" value="{}"/>
-        <property name="maxWait" value="{}"/>
-        <property name="timeBetweenEvictionRunsMillis" value="{}"/>
+        <property name="maxActive" value="${app.dataSource.maxActive}"/>
+        <property name="maxWait" value="${app.dataSource.maxWait}"/>
+        <property name="timeBetweenEvictionRunsMillis" value="${app.dataSource.timeBetweenEvictionRunsMillis}"/>
+
+        <property name="minEvictableIdleTimeMillis" value="${app.dataSource.minEvictableIdleTimeMillis}"/>
         <property name="testWhileIdle" value="true"/>
         <property name="testOnBorrow" value="false"/>
         <property name="testOnReturn" value="false"/>
 
-        <property name="validationQuery" value=""/>
+        <property name="validationQuery" value="${app.dataSource.validationQuery}"/>
 
 
     </bean>
@@ -34,5 +36,10 @@
 
         <property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
         <property name="mapperLocations" value="classpath:mybatis/mapper/*.xml"/>
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="wt.model.dao"/>
+        <property name="sqlSessionFactoryBeanName" value="appSessionFactory"/>
     </bean>
 </beans>

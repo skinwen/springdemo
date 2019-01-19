@@ -10,4 +10,12 @@
     <context:component-scan base-package="wt">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
+
+    <bean id="prop" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="locations">
+        <array>
+            <value>classpath:properties/*.properties</value>
+        </array>
+    </property>
+</bean>
 </beans>
