@@ -4,5 +4,6 @@ CREATE TABLE user_info(
   password VARCHAR(10) COMMENT '密码',
   has_charge INT COMMENT '是否充值',
   crt_dat DATETIME DEFAULT current_timestamp COMMENT '创建时间',
-  upt_dat DATETIME DEFAULT current_timestamp COMMENT '更新时间'
+  upt_dat DATETIME DEFAULT current_timestamp COMMENT '更新时间',
+  INDEX idx_n1(mobile_no)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;

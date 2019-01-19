@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="wt.model.dao.UserInfoDao">
+    <sql id="allColumn">
+        id id,
+        mobile_no mobileNo,
+        password password,
+        has_charge hasCharge,
+        crt_dat crtDat,
+        upt_dat uptDat
+    </sql>
+
+    <select id="findByPage" parameterType="UserInfo">
+        SELECT
+        <include refid="allColumn"/>
+        FROM user_info
+        <where>
+            <if test="mobileNo != null and mobileNo != ''">
+                and mobile_no = #{mobile_no}
+            </if>
+            <if test="hasCharge != null and hasCharge !=''">
+                and has_charge=#{hasCharge}
+            </if>
+        </where>
+        order by crt_dat desc
+    </select>
+
+    <select id="findByMobileNo">
+        SELECT
+        <include refid="allColumn"/>
+        FROM user_info where mobile_no=#{mobileNo}
+    </select>
+
+    <insert id="insert" parameterType="wt.model.po.UserInfo">
+        INSERT INTO user_info (id, mobile_no, password,
+                               has_charge, crt_dat, upt_dat
+        )
+        VALUES (#{id,jdbcType=BIGINT}, #{mobileNo,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+                #{hasCharge,jdbcType=INTEGER}, #{crtDat,jdbcType=TIMESTAMP}, #{uptDat,jdbcType=TIMESTAMP}
+        )
+    </insert>
+
+    <update id="modifyPwd" parameterType="UserInfo">
+        UPDATE user_info
+        <set>
+            password=#{password},
+            upt_dat=sysdate()
+        </set>
+        <where>
+            id=#{id}
+        </where>
+    </update>
+</mapper>
