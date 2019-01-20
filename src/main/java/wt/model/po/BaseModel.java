@@ -9,8 +9,8 @@ import java.util.Date;
  */
 @Data
 public abstract class BaseModel {
-    protected long id;
-    private Date crtDate;
-    private Date uptDate;
+    protected Long id;
+    protected Date crtDate;
+    protected Date uptDate;
 
 }
