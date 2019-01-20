@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="wt.model.dao.SubjectItemDao" >
+
+  <sql id="Base_Column_List" >
+    id, subject_id, subject_item_desc, subject_item_name, item_theme, item_context, item_md5, 
+    crt_dat, upt_dat
+  </sql>
+
+  <insert id="insert" parameterType="wt.model.po.SubjectItem" >
+    insert into subject_item (id, subject_id, subject_item_desc, 
+      subject_item_name, item_theme, item_context, 
+      item_md5, crt_dat, upt_dat
+      )
+    values (#{id,jdbcType=BIGINT}, #{subjectId,jdbcType=BIGINT}, #{subjectItemDesc,jdbcType=VARCHAR},
+      #{subjectItemName,jdbcType=VARCHAR}, #{itemTheme,jdbcType=VARCHAR}, #{itemContext,jdbcType=VARCHAR}, 
+      #{itemMd5,jdbcType=VARCHAR}, #{crtDat,jdbcType=TIMESTAMP}, #{uptDat,jdbcType=TIMESTAMP}
+      )
+  </insert>
+
+</mapper>

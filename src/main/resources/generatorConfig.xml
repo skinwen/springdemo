@@ -48,6 +48,6 @@
             <property name="enableSubPackages" value="false" />
         </javaClientGenerator>
         <!-- 指定数据库表 -->
-        <table tableName="user_info"/>
+        <table tableName="subject_item"/>
     </context>
 </generatorConfiguration>
