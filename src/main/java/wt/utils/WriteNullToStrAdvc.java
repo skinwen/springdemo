@@ -26,6 +26,6 @@ public class WriteNullToStrAdvc implements ResponseBodyAdvice<String>{
         if(null == s){
             return "";
         }
-        return null;
+        return s;
     }
 }
