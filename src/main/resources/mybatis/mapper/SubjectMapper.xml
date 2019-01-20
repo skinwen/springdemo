@@ -4,14 +4,21 @@
   <sql id="allColumn">
     id id,
     subject_desc subjectDesc,
+    subject_item_desc subjectItemDesc,
     crt_dat crtDat,
     upt_dat uptDat
   </sql>
 
   <insert id="insert" parameterType="wt.model.po.Subject" >
-    insert into subject (id, subject_desc, crt_dat, 
+    insert into subject (id, subject_desc, subject_item_desc,crt_dat,
       upt_dat)
-    values (#{id,jdbcType=BIGINT}, #{subjectDesc,jdbcType=VARCHAR}, #{crtDat,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=BIGINT}, #{subjectDesc,jdbcType=VARCHAR}, #{subjectItemDesc,jdbcType=VARCHAR},#{crtDat,jdbcType=TIMESTAMP},
       #{uptDat,jdbcType=TIMESTAMP})
   </insert>
+
+  <select id="findAll" resultType="wt.model.po.Subject">
+    SELECT <include refid="allColumn"/>
+    FROM subject
+  </select>
+
 </mapper>

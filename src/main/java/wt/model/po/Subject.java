@@ -8,4 +8,6 @@ public class Subject extends BaseModel{
 
     private String subjectDesc;
 
+    private String subjectItemDesc;
+
 }

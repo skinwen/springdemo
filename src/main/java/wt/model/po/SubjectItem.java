@@ -12,7 +12,7 @@ public class SubjectItem extends BaseModel{
 
     private String itemTheme;
 
-    private String itemContext;
+    private String itemContent;
 
     private String itemMd5;
 
