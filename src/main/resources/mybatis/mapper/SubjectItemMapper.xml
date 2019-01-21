@@ -1,27 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="wt.model.dao.SubjectItemDao" >
+<mapper namespace="wt.model.dao.SubjectItemDao">
 
-  <sql id="allColumn" >
-    id, subject_id, subject_item_desc, subject_item_name, item_theme, item_content, item_md5,
-    crt_dat, upt_dat
-  </sql>
+    <sql id="allColumn">
+        id id,
+        subject_id subjectId,
+        subject_item_name subjectItemName,
+        crt_dat crtDat,
+        upt_dat uptDat
+    </sql>
 
-  <insert id="insert" parameterType="wt.model.po.SubjectItem" >
-    insert into subject_item (id, subject_id, subject_item_desc, 
-      subject_item_name, item_theme, item_content,
-      item_md5, crt_dat, upt_dat
-      )
-    values (#{id,jdbcType=BIGINT}, #{subjectId,jdbcType=BIGINT}, #{subjectItemDesc,jdbcType=VARCHAR},
-      #{subjectItemName,jdbcType=VARCHAR}, #{itemTheme,jdbcType=VARCHAR}, #{itemContent,jdbcType=VARCHAR},
-      #{itemMd5,jdbcType=VARCHAR}, #{crtDat,jdbcType=TIMESTAMP}, #{uptDat,jdbcType=TIMESTAMP}
-      )
-  </insert>
+    <insert id="insert" parameterType="wt.model.po.SubjectItem">
+        INSERT INTO subject_item (id, subject_id,
+                                  subject_item_name, crt_dat, upt_dat
+        )
+        VALUES (#{id,jdbcType=BIGINT}, #{subjectId,jdbcType=BIGINT},
+                #{subjectItemName,jdbcType=VARCHAR},
+                #{crtDat,jdbcType=TIMESTAMP}, #{uptDat,jdbcType=TIMESTAMP}
+        )
+    </insert>
 
 
-  <select id="findBySubjectId" >
-    SELECT <include refid="allColumn"/>
-    FROM subject_item
-    where subject_id = #{subjectId}
-  </select>
+    <select id="findBySubjectId">
+        SELECT
+        <include refid="allColumn"/>
+        FROM subject_item
+        where subject_id = #{subjectId}
+    </select>
 </mapper>

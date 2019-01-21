@@ -6,7 +6,7 @@ import lombok.Data;
 public class Subject extends BaseModel{
     private Long id;
 
-    private String subjectDesc;
+    private String subjectName;
 
     private String subjectItemDesc;
 

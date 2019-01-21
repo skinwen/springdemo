@@ -3,16 +3,16 @@
 <mapper namespace="wt.model.dao.SubjectDao" >
   <sql id="allColumn">
     id id,
-    subject_desc subjectDesc,
+    subject_desc subjectName,
     subject_item_desc subjectItemDesc,
     crt_dat crtDat,
     upt_dat uptDat
   </sql>
 
   <insert id="insert" parameterType="wt.model.po.Subject" >
-    insert into subject (id, subject_desc, subject_item_desc,crt_dat,
+    insert into subject (id, subject_name,crt_dat,
       upt_dat)
-    values (#{id,jdbcType=BIGINT}, #{subjectDesc,jdbcType=VARCHAR}, #{subjectItemDesc,jdbcType=VARCHAR},#{crtDat,jdbcType=TIMESTAMP},
+    values (#{id,jdbcType=BIGINT}, #{subjectName,jdbcType=VARCHAR},#{crtDat,jdbcType=TIMESTAMP},
       #{uptDat,jdbcType=TIMESTAMP})
   </insert>
 

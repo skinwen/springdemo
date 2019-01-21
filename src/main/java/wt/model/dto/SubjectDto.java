@@ -11,5 +11,5 @@ import java.util.List;
  */
 @Data
 public class SubjectDto extends Subject {
-
+    private List<SubjectItem> subjectItems;
 }

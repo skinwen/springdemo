@@ -2,11 +2,16 @@ package wt.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import wt.model.dao.SubjectDao;
+import wt.model.dto.SubjectDto;
 import wt.model.po.Subject;
+import wt.model.po.SubjectItem;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,11 +24,27 @@ public class SubjectService {
     @Resource
     private SubjectDao subjectDao;
 
+    @Resource
+    private SubjectItemService subjectItemService;
+
     public void insert(Subject subject) {
         subjectDao.insert(subject);
     }
 
-    public List<Subject> findAll() {
-        return subjectDao.findAll();
+    public List<SubjectDto> findAll() {
+        List<SubjectDto> res = new ArrayList<>();
+        List<Subject> list = subjectDao.findAll();
+        if (CollectionUtils.isEmpty(list)) {
+            return new ArrayList<>();
+        } else {
+            for (Subject s : list) {
+                SubjectDto subjectDto = new SubjectDto();
+                BeanUtils.copyProperties(s, subjectDto);
+                List<SubjectItem> items = subjectItemService.findBySubjectId(s.getId());
+                subjectDto.setSubjectItems(items);
+                res.add(subjectDto);
+            }
+        }
+        return res;
     }
 }
