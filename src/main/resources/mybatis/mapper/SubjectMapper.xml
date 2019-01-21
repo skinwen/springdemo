@@ -3,8 +3,7 @@
 <mapper namespace="wt.model.dao.SubjectDao" >
   <sql id="allColumn">
     id id,
-    subject_desc subjectName,
-    subject_item_desc subjectItemDesc,
+    subject_name subjectName,
     crt_dat crtDat,
     upt_dat uptDat
   </sql>
