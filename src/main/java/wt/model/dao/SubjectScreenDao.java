@@ -3,6 +3,8 @@ package wt.model.dao;
 import org.springframework.stereotype.Repository;
 import wt.model.po.SubjectScreen;
 
+import java.util.List;
+
 @Repository
 public interface SubjectScreenDao {
 
@@ -14,5 +16,8 @@ public interface SubjectScreenDao {
 
 
     int updateByPrimaryKeySelective(SubjectScreen record);
+
+
+    List<SubjectScreen> findList(SubjectScreen para);
 
 }

@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class SubjectScreen extends BaseModel{
+public class SubjectScreen extends BaseModel {
 
     private String theme;
 
@@ -20,4 +20,6 @@ public class SubjectScreen extends BaseModel{
 
     @JSONField(serialize = false)
     private String md5;
+
+    private String type;
 }

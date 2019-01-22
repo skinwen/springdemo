@@ -1,5 +1,7 @@
 package wt.exceptions;
 
+import wt.consts.ErrorCode;
+
 /**
  * Created by Administrator on 2018/7/3 0003.
  */
@@ -10,6 +12,11 @@ public class BusinessException extends RuntimeException {
     public BusinessException(String code, String message) {
         this.code = code;
         this.msg = message;
+    }
+
+    public BusinessException(ErrorCode errorCode) {
+        this.code = errorCode.getCode();
+        this.msg = errorCode.getMsg();
     }
 
     public String getCode() {

@@ -28,4 +28,14 @@ public class SessionUtil {
         }
         return false;
     }
+
+    public static String getVerifyCode() {
+
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        HttpSession session = request.getSession();
+        if (session != null) {
+            return (String) session.getAttribute(SessionConst.RANDOMCODEKEY);
+        }
+        return null;
+    }
 }

@@ -22,4 +22,8 @@ public class SubjectItemContentService {
     public List<SubjectItemContent> findBySubjectId(String subjectItemId) {
         return contentDao.findByItemId(subjectItemId);
     }
+
+    public SubjectItemContent findByMd5(String md5) {
+        return contentDao.findByItemIdMd5(md5);
+    }
 }
