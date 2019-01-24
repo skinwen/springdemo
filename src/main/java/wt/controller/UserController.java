@@ -55,7 +55,7 @@ public class UserController extends AbstractController {
         }
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST, name = "登录")
+    @RequestMapping(value = "/login.json", method = RequestMethod.POST, name = "登录")
     @ResponseBody
     public void login(String mobileNo, String password, String verifyCode) {
         if (Objects.equals(SessionUtil.getVerifyCode(), verifyCode)) {
@@ -68,6 +68,22 @@ public class UserController extends AbstractController {
             }
         } else {
             throw new BusinessException(ErrorCode.VERIFY_CODE_ERROR);
+        }
+    }
+
+    @RequestMapping(value = "/modifyPwd.json", method = RequestMethod.POST, name = "修改密码")
+    @ResponseBody
+    public void modifyPwd(String mobileNo, String pwdOld, String pwdNew) {
+        UserInfo userInfo = userService.findByMobileNo(mobileNo);
+        if (userInfo == null) {
+            throw new BusinessException(ErrorCode.USERNAME_OR_PWD_ERROR);
+        } else {
+            if (Objects.equals(pwdOld, userInfo.getPassword())) {
+                userInfo.setPassword(pwdNew);
+                userService.updatePwd(userInfo);
+            } else {
+                throw new BusinessException(ErrorCode.USERNAME_OR_PWD_ERROR);
+            }
         }
     }
 }
