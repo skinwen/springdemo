@@ -73,7 +73,7 @@
 
     <select id="findList" parameterType="wt.model.po.SubjectScreen">
         SELECT
-        <include refid="allColumn"/>
+        <include refid="Base_Column_List"/>
         FROM subject_screen
         <where>
             <if test="type != null">

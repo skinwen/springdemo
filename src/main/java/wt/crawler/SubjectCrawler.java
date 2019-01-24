@@ -9,12 +9,21 @@ import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HttpContext;
 import org.apache.http.util.EntityUtils;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
+import wt.consts.ResponseHandlers;
+import wt.model.po.Subject;
+import wt.service.SubjectItemContentService;
+import wt.service.SubjectItemService;
+import wt.service.SubjectService;
 
+import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,11 +43,20 @@ public class SubjectCrawler extends AbstractCrawler {
 
     private HttpContext context = HttpClientContext.create();
 
-    public void getSubjects() throws Exception {
+    @Resource
+    private SubjectService subjectService;
 
+    @Resource
+    private SubjectItemService subjectItemService;
+
+    @Resource
+    private SubjectItemContentService subjectItemContentService;
+
+    public void getSubjects() throws Exception {
+        login();
     }
 
-    public void login() throws Exception {
+    private void login() throws Exception {
         String picUrlAll = picUrl + Math.random();
         HttpGet get = new HttpGet(picUrlAll);
         HttpResponse response = client.execute(get, context);
@@ -60,5 +78,23 @@ public class SubjectCrawler extends AbstractCrawler {
         HttpEntity entity = new UrlEncodedFormEntity(valuePairList, "UTF-8");
         login.setEntity(entity);
         client.execute(login, context);
+    }
+
+    private void getIndex() throws IOException {
+        String indexUrl = "http://hs.hanbinglianai.com/";
+        Element element = client.execute(new HttpGet(indexUrl), ResponseHandlers.ELEMENT_RESPONSE_HANDLER, context);
+        Elements elements = element.select("#List > div");
+        for (int i = 0; i < elements.size(); i++) {
+            Elements title = elements.get(i).select(".H-theme-font-color_my_red");
+            Subject subject = new Subject();
+            subject.setSubjectName(title.text());
+            subjectService.insert(subject);
+            Elements items = elements.get(i).select(".H-theme-background-color-white");
+            Elements itemList = items.select(".typebtn");
+            for (int j = 0; j < itemList.size(); j++) {
+                String itemUrl = "http://hs.hanbinglianai.com"+itemList.get(j).attr("href");
+            }
+
+        }
     }
 }
