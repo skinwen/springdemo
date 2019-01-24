@@ -6,16 +6,17 @@
         id id,
         subject_id subjectId,
         subject_item_name subjectItemName,
+        can_show canShow,
         crt_dat crtDat,
         upt_dat uptDat
     </sql>
 
     <insert id="insert" parameterType="wt.model.po.SubjectItem">
         INSERT INTO subject_item (id, subject_id,
-                                  subject_item_name, crt_dat, upt_dat
+                                  subject_item_name, can_show, crt_dat, upt_dat
         )
         VALUES (#{id,jdbcType=BIGINT}, #{subjectId,jdbcType=BIGINT},
-                #{subjectItemName,jdbcType=VARCHAR},
+                #{subjectItemName,jdbcType=VARCHAR}, #{canShow,jdbcType=VARCHAR},
                 #{crtDat,jdbcType=TIMESTAMP}, #{uptDat,jdbcType=TIMESTAMP}
         )
     </insert>

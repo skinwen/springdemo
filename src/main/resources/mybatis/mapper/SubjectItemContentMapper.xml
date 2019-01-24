@@ -8,30 +8,33 @@
         theme theme,
         content content,
         md5 md5,
-        type type,
+        can_show canShow,
         crt_dat crtDat,
         upt_dat uptDat
     </sql>
 
     <insert id="insert" parameterType="wt.model.po.SubjectItemContent">
         INSERT INTO subject_item_content (id, subject_item_id, theme,
-                                          content, md5, type, crt_dat, upt_dat
+                                          content, md5, can_show, crt_dat, upt_dat
         )
         VALUES (#{id,jdbcType=BIGINT}, #{subjectItemId,jdbcType=BIGINT}, #{theme,jdbcType=VARCHAR},
-                #{content,jdbcType=VARCHAR}, #{md5,jdbcType=VARCHAR},#{type,jdbcType=VARCHAR}, #{crtDat,jdbcType=TIMESTAMP},
+                #{content,jdbcType=VARCHAR}, #{md5,jdbcType=VARCHAR},
+                #{canShow,jdbcType=VARCHAR}, #{crtDat,jdbcType=TIMESTAMP},
                 #{uptDat,jdbcType=TIMESTAMP}
         )
     </insert>
 
     <select id="findByItemId" resultType="wt.model.po.SubjectItemContent">
-        SELECT <include refid="Base_Column_List"/>
+        SELECT
+        <include refid="Base_Column_List"/>
         FROM subject_item_content
         where subject_item_id=#{itemId}
     </select>
-    
-    
+
+
     <select id="findByItemIdMd5" resultType="wt.model.po.SubjectItemContent">
-        SELECT <include refid="Base_Column_List"/>
+        SELECT
+        <include refid="Base_Column_List"/>
         FROM subject_item_content
         where md5=#{md5}
     </select>

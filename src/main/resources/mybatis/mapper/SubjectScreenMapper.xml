@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="wt.model.dao.SubjectScreenDao">
+
+    <sql id="Base_Column_List">
+        id id,
+        theme theme,
+        target target,
+        content content,
+        img_url imgUrl,
+        release_time releaseTime,
+        type type,
+        crt_dat crtDat,
+        upt_dat uptDat,
+        md5 md5,
+        can_show canShow
+    </sql>
+
+    <select id="selectByPrimaryKey" resultType="wt.model.po.SubjectScreen" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from subject_screen
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <insert id="insert" parameterType="wt.model.po.SubjectScreen">
+        INSERT INTO subject_screen (id, theme, target,
+                                    content, img_url, release_time,type,
+                                    crt_dat, upt_dat, md5,can_show
+        )
+        VALUES (#{id,jdbcType=BIGINT}, #{theme,jdbcType=VARCHAR}, #{target,jdbcType=VARCHAR},
+                #{content,jdbcType=VARCHAR}, #{imgUrl,jdbcType=VARCHAR}, #{releaseTime,jdbcType=TIMESTAMP},#{type,jdbcType=TIMESTAMP},
+                #{crtDat,jdbcType=TIMESTAMP}, #{uptDat,jdbcType=TIMESTAMP}, #{md5,jdbcType=VARCHAR}, #{canShow,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="wt.model.po.SubjectScreen">
+        update subject_screen
+        <set>
+            <if test="theme != null">
+                theme = #{theme,jdbcType=VARCHAR},
+            </if>
+            <if test="target != null">
+                target = #{target,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="imgUrl != null">
+                img_url = #{imgUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="releaseTime != null">
+                release_time = #{releaseTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="crtDat != null">
+                crt_dat = #{crtDat,jdbcType=TIMESTAMP},
+            </if>
+            <if test="uptDat != null">
+                upt_dat = #{uptDat,jdbcType=TIMESTAMP},
+            </if>
+            <if test="md5 != null">
+                md5 = #{md5,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="canShow != null">
+                canShow = #{canShow,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <select id="findList" parameterType="wt.model.po.SubjectScreen">
+        SELECT
+        <include refid="allColumn"/>
+        FROM subject_screen
+        <where>
+            <if test="type != null">
+                and type=#{type},
+            </if>
+            <if test="md5 != null">
+                and md5=#{md5},
+            </if>
+            <if test="theme != null">
+                and theme=#{theme},
+            </if>
+            <if test="canShow != null">
+                and can_show=#{canShow},
+            </if>
+        </where>
+
+    </select>
+</mapper>

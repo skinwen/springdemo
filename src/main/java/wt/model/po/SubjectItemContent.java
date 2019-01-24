@@ -17,4 +17,6 @@ public class SubjectItemContent extends BaseModel {
 
     private String type;
 
+    private String canShow;
+
 }

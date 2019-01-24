@@ -22,4 +22,6 @@ public class SubjectScreen extends BaseModel {
     private String md5;
 
     private String type;
+
+    private String canShow;
 }
