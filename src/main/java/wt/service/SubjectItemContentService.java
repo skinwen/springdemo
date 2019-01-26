@@ -26,4 +26,8 @@ public class SubjectItemContentService {
     public SubjectItemContent findByMd5(String md5) {
         return contentDao.findByItemIdMd5(md5);
     }
+
+    public void insert(SubjectItemContent subjectItemContent){
+        contentDao.insert(subjectItemContent);
+    }
 }

@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import wt.consts.ErrorCode;
+import wt.consts.SessionConst;
 import wt.exceptions.BusinessException;
 import wt.model.po.UserInfo;
 import wt.service.UserService;
@@ -76,6 +77,12 @@ public class UserController extends AbstractController {
         } else {
             throw new BusinessException(ErrorCode.VERIFY_CODE_ERROR);
         }
+    }
+
+    @RequestMapping(value = "/logout.json", method = RequestMethod.POST, name = "登出")
+    @ResponseBody
+    public void logout() {
+        SessionUtil.logout();
     }
 
     @RequestMapping(value = "/modifyPwd.json", method = RequestMethod.POST, name = "修改密码")

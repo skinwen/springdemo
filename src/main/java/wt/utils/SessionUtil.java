@@ -29,6 +29,14 @@ public class SessionUtil {
         return false;
     }
 
+    public static void logout() {
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        HttpSession session = request.getSession();
+        if (session != null) {
+            session.invalidate();
+        }
+    }
+
     public static String getVerifyCode() {
 
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
@@ -45,7 +53,7 @@ public class SessionUtil {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         HttpSession session = request.getSession();
         if (session != null) {
-           session.removeAttribute(SessionConst.RANDOMCODEKEY);
+            session.removeAttribute(SessionConst.RANDOMCODEKEY);
         }
     }
 
@@ -61,7 +69,12 @@ public class SessionUtil {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         HttpSession session = request.getSession();
         if (session != null) {
-            return (boolean) session.getAttribute(SessionConst.HAS_CHARGE);
+            Object o = session.getAttribute(SessionConst.HAS_CHARGE);
+            if (o == null) {
+                return false;
+            } else {
+                return (boolean) o;
+            }
         } else {
             return false;
         }

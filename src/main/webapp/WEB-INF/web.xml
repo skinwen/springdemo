@@ -128,6 +128,9 @@
         <url-pattern>/</url-pattern> <!--会拦截URL中带“/”的请求。-->
     </servlet-mapping>
 
+    <listener>
+        <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+    </listener>
     <session-config><!--会话超时配置，单位分钟-->
         <session-timeout>360</session-timeout>
     </session-config>

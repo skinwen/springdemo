@@ -71,22 +71,22 @@
         where id = #{id,jdbcType=BIGINT}
     </update>
 
-    <select id="findList" parameterType="wt.model.po.SubjectScreen">
+    <select id="findList" parameterType="wt.model.po.SubjectScreen" resultType="wt.model.po.SubjectScreen">
         SELECT
         <include refid="Base_Column_List"/>
         FROM subject_screen
         <where>
             <if test="type != null">
-                and type=#{type},
+                and type=#{type}
             </if>
             <if test="md5 != null">
-                and md5=#{md5},
+                and md5=#{md5}
             </if>
             <if test="theme != null">
-                and theme=#{theme},
+                and theme=#{theme}
             </if>
             <if test="canShow != null">
-                and can_show=#{canShow},
+                and can_show=#{canShow}
             </if>
         </where>
 

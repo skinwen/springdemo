@@ -2,6 +2,7 @@ package wt.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +16,7 @@ import wt.service.SubjectService;
 import wt.utils.SessionUtil;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -22,7 +24,8 @@ import java.util.Objects;
 /**
  * Created by Administrator on 2019/1/20 0020.
  */
-@Controller("subject")
+@Controller()
+@RequestMapping("subject")
 public class SubjectController extends AbstractController {
 
 
@@ -45,6 +48,7 @@ public class SubjectController extends AbstractController {
     @ResponseBody
     public List<SubjectItemContent> getItemById(String itemId) {
         List<SubjectItemContent> result = subjectItemContentService.findBySubjectId(itemId);
+
         if (SessionUtil.getHasCharge()) {
             for (SubjectItemContent c : result) {
                 c.setCanShow("true");
