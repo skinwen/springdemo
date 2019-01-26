@@ -38,4 +38,32 @@ public class SessionUtil {
         }
         return null;
     }
+
+
+    public static void removeVerifyCode() {
+
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        HttpSession session = request.getSession();
+        if (session != null) {
+           session.removeAttribute(SessionConst.RANDOMCODEKEY);
+        }
+    }
+
+    public static void addHasCharge(boolean value) {
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        HttpSession session = request.getSession();
+        if (session != null) {
+            session.setAttribute(SessionConst.HAS_CHARGE, value);
+        }
+    }
+
+    public static boolean getHasCharge() {
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        HttpSession session = request.getSession();
+        if (session != null) {
+            return (boolean) session.getAttribute(SessionConst.HAS_CHARGE);
+        } else {
+            return false;
+        }
+    }
 }

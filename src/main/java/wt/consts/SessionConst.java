@@ -7,4 +7,6 @@ public interface SessionConst {
     String RANDOMCODEKEY = "RANDOMVALIDATECODEKEY";//放到session中的key
 
     String USER_ID = "USER_ID";
+
+    String HAS_CHARGE = "HAS_CHARGE";
 }

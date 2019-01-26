@@ -32,12 +32,10 @@
     </select>
 
     <insert id="insert" parameterType="wt.model.po.UserInfo">
-        INSERT INTO user_info (id, mobile_no, password,
-                               has_charge, crt_dat, upt_dat
+        INSERT INTO user_info (id, mobile_no, password
+
         )
-        VALUES (#{id,jdbcType=BIGINT}, #{mobileNo,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
-                #{hasCharge,jdbcType=INTEGER}, #{crtDat,jdbcType=TIMESTAMP}, #{uptDat,jdbcType=TIMESTAMP}
-        )
+        VALUES (#{id,jdbcType=BIGINT}, #{mobileNo,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}      )
     </insert>
 
     <update id="modifyPwd" parameterType="UserInfo">

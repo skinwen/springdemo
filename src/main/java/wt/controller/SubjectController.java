@@ -12,9 +12,12 @@ import wt.model.po.SubjectScreen;
 import wt.service.SubjectItemContentService;
 import wt.service.SubjectScreenService;
 import wt.service.SubjectService;
+import wt.utils.SessionUtil;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by Administrator on 2019/1/20 0020.
@@ -41,7 +44,24 @@ public class SubjectController extends AbstractController {
     @RequestMapping(path = "getItemById.json", name = "获取话术", method = RequestMethod.GET)
     @ResponseBody
     public List<SubjectItemContent> getItemById(String itemId) {
-        return subjectItemContentService.findBySubjectId(itemId);
+        List<SubjectItemContent> result = subjectItemContentService.findBySubjectId(itemId);
+        if (SessionUtil.getHasCharge()) {
+            for (SubjectItemContent c : result) {
+                c.setCanShow("true");
+            }
+            return result;
+        } else {
+            for (SubjectItemContent s : result) {
+                if (Objects.equals(s.getCanShow(), "0")) {
+                    s.setContent("✱✱✱✱✱✱✱✱✱请点击查看✱✱✱✱✱✱✱✱✱...");
+                    s.setTheme("✱✱✱✱✱✱✱✱");
+                    s.setCanShow("false");
+                } else {
+                    s.setCanShow("true");
+                }
+            }
+            return result;
+        }
     }
 
     @RequestMapping(path = "screenshotsList.json", name = "获取话术截图", method = RequestMethod.GET)
@@ -51,6 +71,27 @@ public class SubjectController extends AbstractController {
 
         para.setType(type);
 
-        return subjectScreenService.findList(para);
+        List<SubjectScreen> result = subjectScreenService.findList(para);
+
+        if (SessionUtil.getHasCharge()) {
+            for (SubjectScreen ss : result) {
+                ss.setCanShow("true");
+            }
+            return result;
+        } else {
+            for (SubjectScreen ss : result) {
+                if (Objects.equals(ss.getCanShow(), "0")) {
+                    ss.setContent("✱✱✱✱✱✱✱✱✱✱✱✱✱✱✱✱✱✱✱✱✱");
+                    ss.setTarget("✱✱✱✱✱✱✱✱✱✱✱✱✱✱✱✱✱✱✱✱✱");
+                    ss.setTheme("✱✱✱✱✱✱请点击查看✱✱✱✱✱✱");
+                    ss.setReleaseTime(new Date(0));
+                    ss.setImgUrl("✱✱✱✱✱✱✱✱✱✱✱✱✱✱✱✱✱✱✱✱✱");
+                    ss.setCanShow("false");
+                } else {
+                    ss.setCanShow("true");
+                }
+            }
+            return result;
+        }
     }
 }

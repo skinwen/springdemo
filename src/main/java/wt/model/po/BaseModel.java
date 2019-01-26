@@ -12,8 +12,8 @@ import java.util.Date;
 public abstract class BaseModel {
     protected Long id;
     @JSONField(serialize=false)
-    protected Date crtDate;
+    protected Date crtDat;
     @JSONField(serialize=false)
-    protected Date uptDate;
+    protected Date uptDat;
 
 }

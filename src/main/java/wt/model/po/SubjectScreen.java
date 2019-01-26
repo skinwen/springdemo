@@ -1,12 +1,12 @@
 package wt.model.po;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
 
 import java.util.Date;
 
 @Data
 public class SubjectScreen extends BaseModel {
+    private Long id;
 
     private String theme;
 
@@ -18,10 +18,14 @@ public class SubjectScreen extends BaseModel {
 
     private Date releaseTime;
 
-    @JSONField(serialize = false)
+    private Date crtDat;
+
+    private Date uptDat;
+
     private String md5;
 
     private String type;
 
     private String canShow;
+
 }

@@ -29,14 +29,14 @@ public class UserController extends AbstractController {
     /**
      * 生成验证码
      */
-    @RequestMapping(value = "/getVerify", method = RequestMethod.GET, name = "获取图片验证码")
+    @RequestMapping(value = "/getVerify.json", method = RequestMethod.GET, name = "获取图片验证码")
     @ResponseBody
     public String getVerify(HttpServletRequest request) throws IOException {
         CaptchaCodeUtil captchaCodeUtil = new CaptchaCodeUtil();
         return captchaCodeUtil.getRandcode(request);//输出验证码图片方法
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST, name = "注册用户")
+    @RequestMapping(value = "/register.json", method = RequestMethod.POST, name = "注册用户")
     @ResponseBody
     public void register(String mobileNo, String password, String verifyCode) {
         if (Objects.equals(SessionUtil.getVerifyCode(), verifyCode)) {
@@ -47,8 +47,9 @@ public class UserController extends AbstractController {
                 UserInfo newUser = new UserInfo();
                 newUser.setMobileNo(mobileNo);
                 newUser.setPassword(password);
-                newUser.setHasCharge(1);
+                newUser.setHasCharge(0);
                 userService.insert(newUser);
+                SessionUtil.removeVerifyCode();
             }
         } else {
             throw new BusinessException(ErrorCode.VERIFY_CODE_ERROR);
@@ -62,6 +63,12 @@ public class UserController extends AbstractController {
             UserInfo userInfo = userService.findByMobileNo(mobileNo);
             if (Objects.equals(userInfo.getPassword(), password)) {
                 logger.info("登陆成功");
+                SessionUtil.removeVerifyCode();
+                if (userInfo.getHasCharge() == 1) {
+                    SessionUtil.addHasCharge(true);
+                } else {
+                    SessionUtil.addHasCharge(false);
+                }
                 return;
             } else {
                 throw new BusinessException(ErrorCode.USERNAME_OR_PWD_ERROR);
