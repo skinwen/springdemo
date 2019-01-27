@@ -113,7 +113,7 @@ public class SubjectCrawler extends AbstractCrawler {
                     String theme = temp.select(".H-theme-font-color1").text();
                     subjectItemContent.setTheme(theme);
                     subjectItemContent.setSubjectItemId(subjectItem.getId());
-                    subjectItemContent.setContent(temp.select(".wz1wz").text());
+                    subjectItemContent.setContent(temp.select(".wz1wz").html());
                     subjectItemContent.setMd5(MD5Util.getMD532(subjectName + subjectItemContent.getContent() + subjectItemContent.getTheme()));
                     subjectItemContentService.insert(subjectItemContent);
                 }
@@ -147,8 +147,8 @@ public class SubjectCrawler extends AbstractCrawler {
                     Element temp = itemElements.get(k);
                     String theme = temp.select(".H-theme-font-color1").text();
                     SubjectItemContent subjectItemContent = new SubjectItemContent();
-                    subjectItemContent.setContent(temp.select(".wz1wz").text());
-                    subjectItemContent.setMd5(MD5Util.getMD532(subjectItemContent.getContent() + theme));
+                    subjectItemContent.setContent(temp.select(".wz1wz").html());
+                    subjectItemContent.setMd5(MD5Util.getMD532(subjectName + subjectItemContent.getContent() + theme));
                     SubjectItemContent content = subjectItemContentService.findByMd5(MD5Util.getMD532(subjectName + subjectItemContent.getContent() + theme));
                     subjectItemContentService.updateCanShow(content.getId(), "1");
                 }
