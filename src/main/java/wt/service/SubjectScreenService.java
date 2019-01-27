@@ -2,7 +2,6 @@ package wt.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import wt.model.dao.SubjectScreenDao;
 import wt.model.po.SubjectScreen;
@@ -22,5 +21,17 @@ public class SubjectScreenService {
 
     public List<SubjectScreen> findList(SubjectScreen para) {
         return subjectScreenDao.findList(para);
+    }
+
+    public void insert(SubjectScreen para) {
+        subjectScreenDao.insert(para);
+    }
+
+    public SubjectScreen findByMd5(String md5) {
+        return subjectScreenDao.findByMd5(md5);
+    }
+
+    public void updateCanshow(Long id, String canshow) {
+        subjectScreenDao.updateCanShow(id, canshow);
     }
 }

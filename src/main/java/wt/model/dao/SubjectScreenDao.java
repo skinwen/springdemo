@@ -1,5 +1,6 @@
 package wt.model.dao;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import wt.model.po.SubjectScreen;
 
@@ -19,5 +20,9 @@ public interface SubjectScreenDao {
 
 
     List<SubjectScreen> findList(SubjectScreen para);
+
+    SubjectScreen findByMd5(@Param("md5") String md5);
+
+    void updateCanShow(@Param("id") Long id, @Param("canShow") String canShow);
 
 }

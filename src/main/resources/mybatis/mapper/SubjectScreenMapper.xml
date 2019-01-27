@@ -25,12 +25,14 @@
 
     <insert id="insert" parameterType="wt.model.po.SubjectScreen">
         INSERT INTO subject_screen (id, theme, target,
-                                    content, img_url, release_time,type,
-                                    crt_dat, upt_dat, md5,can_show
+                                    content, img_url, release_time, type,
+                                    crt_dat, upt_dat, md5, can_show
         )
         VALUES (#{id,jdbcType=BIGINT}, #{theme,jdbcType=VARCHAR}, #{target,jdbcType=VARCHAR},
-                #{content,jdbcType=VARCHAR}, #{imgUrl,jdbcType=VARCHAR}, #{releaseTime,jdbcType=TIMESTAMP},#{type,jdbcType=TIMESTAMP},
-                #{crtDat,jdbcType=TIMESTAMP}, #{uptDat,jdbcType=TIMESTAMP}, #{md5,jdbcType=VARCHAR}, #{canShow,jdbcType=VARCHAR}
+                                       #{content,jdbcType=VARCHAR}, #{imgUrl,jdbcType=VARCHAR},
+                                       #{releaseTime,jdbcType=TIMESTAMP}, #{type,jdbcType=TIMESTAMP},
+                                       #{crtDat,jdbcType=TIMESTAMP}, #{uptDat,jdbcType=TIMESTAMP},
+                                       #{md5,jdbcType=VARCHAR}, #{canShow,jdbcType=VARCHAR}
         )
     </insert>
 
@@ -91,4 +93,17 @@
         </where>
 
     </select>
+
+
+    <select id="findByMd5" resultType="wt.model.po.SubjectScreen">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM subject_screen where md5=#{md5}
+    </select>
+
+    <update id="updateCanShow">
+        UPDATE subject_screen
+        SET can_show = #{canShow}
+        WHERE id = #{id}
+    </update>
 </mapper>

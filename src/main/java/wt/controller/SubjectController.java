@@ -2,7 +2,7 @@ package wt.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,7 +16,6 @@ import wt.service.SubjectService;
 import wt.utils.SessionUtil;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -79,11 +78,21 @@ public class SubjectController extends AbstractController {
 
         if (SessionUtil.getHasCharge()) {
             for (SubjectScreen ss : result) {
+                if (StringUtils.isEmpty(ss.getImgUrl())) {
+                    ss.setImgUrl("");
+                } else {
+                    ss.setImgUrl("http://47.92.175.26/img/" + ss.getImgUrl() + ".jpg");
+                }
                 ss.setCanShow("true");
             }
             return result;
         } else {
             for (SubjectScreen ss : result) {
+                if (StringUtils.isEmpty(ss.getImgUrl())) {
+                    ss.setImgUrl("");
+                } else {
+                    ss.setImgUrl("http://47.92.175.26/img/" + ss.getImgUrl() + ".jpg");
+                }
                 if (Objects.equals(ss.getCanShow(), "0")) {
                     ss.setContent("✱✱✱✱✱✱✱✱✱✱✱✱✱✱✱✱✱✱✱✱✱");
                     ss.setTarget("✱✱✱✱✱✱✱✱✱✱✱✱✱✱✱✱✱✱✱✱✱");
