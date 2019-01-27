@@ -9,12 +9,16 @@ import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HttpContext;
 import org.apache.http.util.EntityUtils;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
+import wt.consts.ResponseHandlers;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,5 +60,27 @@ public class ScreenCrawler extends AbstractCrawler {
         HttpEntity entity = new UrlEncodedFormEntity(valuePairList, "UTF-8");
         login.setEntity(entity);
         client.execute(login, context);
+    }
+    private void getIndex() throws IOException {
+        String itemUrl = "http://hs.hanbinglianai.com/portal/article/index.html?id={0}&name=admin";
+
+
+
+        String url = "http://hs.hanbinglianai.com/portal/page/index/id/2/name/admin.html";
+        HttpGet get = new HttpGet(url);
+        Element element = client.execute(get, ResponseHandlers.ELEMENT_RESPONSE_HANDLER,context);
+        Elements ltjt = element.select("#lttwList");
+        Elements ltjlList = ltjt.select(".wz1");
+        Elements lajx = element.select("#wqtwList");
+        Elements lajlList = lajx.select(".wz1");
+
+        for (int i = 0; i < lajlList.size(); i++) {
+            Element temp = lajlList.get(i);
+            String value = temp.attr("onclick");
+        }
+
+        for (int i = 0; i < ltjlList.size(); i++) {
+            Element temp = ltjlList.get(i);
+        }
     }
 }
