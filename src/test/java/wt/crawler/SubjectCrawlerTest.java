@@ -16,4 +16,9 @@ public class SubjectCrawlerTest extends SpringTestCase {
         subjectCrawler.getSubjects();
     }
 
+
+    @Test
+    public void getSubjectsWithOutLogin() throws Exception {
+        subjectCrawler.getSubjectsWithOutLogin();
+    }
 }

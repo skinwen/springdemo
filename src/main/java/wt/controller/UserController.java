@@ -62,7 +62,7 @@ public class UserController extends AbstractController {
     public void login(String mobileNo, String password, String verifyCode) {
         if (Objects.equals(SessionUtil.getVerifyCode(), verifyCode)) {
             UserInfo userInfo = userService.findByMobileNo(mobileNo);
-            if (Objects.equals(userInfo.getPassword(), password)) {
+            if (userInfo != null && Objects.equals(userInfo.getPassword(), password)) {
                 logger.info("登陆成功");
                 SessionUtil.removeVerifyCode();
                 if (userInfo.getHasCharge() == 1) {

@@ -38,4 +38,11 @@
         FROM subject_item_content
         where md5=#{md5}
     </select>
+
+
+    <update id="updateCanShow">
+        UPDATE subject_item_content
+        SET can_show = #{canShow}
+        WHERE id = #{id}
+    </update>
 </mapper>

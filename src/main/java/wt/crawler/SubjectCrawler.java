@@ -59,6 +59,10 @@ public class SubjectCrawler extends AbstractCrawler {
         getIndex();
     }
 
+    public void getSubjectsWithOutLogin() throws Exception {
+        getIndex2();
+    }
+
     private void login() throws Exception {
         String picUrlAll = picUrl + Math.random();
         HttpGet get = new HttpGet(picUrlAll);
@@ -101,6 +105,7 @@ public class SubjectCrawler extends AbstractCrawler {
                 subjectItemService.insert(subjectItem);
                 HttpGet get = new HttpGet(itemUrl);
                 Element itemElement = client.execute(get, ResponseHandlers.ELEMENT_RESPONSE_HANDLER, context);
+                String subjectName = itemList.get(j).text();
                 Elements itemElements = itemElement.select(".wz1");
                 for (int k = 0; k < itemElements.size(); k++) {
                     Element temp = itemElements.get(k);
@@ -109,8 +114,43 @@ public class SubjectCrawler extends AbstractCrawler {
                     subjectItemContent.setTheme(theme);
                     subjectItemContent.setSubjectItemId(subjectItem.getId());
                     subjectItemContent.setContent(temp.select(".wz1wz").text());
-                    subjectItemContent.setMd5(MD5Util.getMD532(subjectItemContent.getContent() + subjectItemContent.getTheme()));
+                    subjectItemContent.setMd5(MD5Util.getMD532(subjectName + subjectItemContent.getContent() + subjectItemContent.getTheme()));
                     subjectItemContentService.insert(subjectItemContent);
+                }
+            }
+
+        }
+    }
+
+    private void getIndex2() throws IOException {
+        String indexUrl = "http://hs.hanbinglianai.com/";
+        Element element = client.execute(new HttpGet(indexUrl), ResponseHandlers.ELEMENT_RESPONSE_HANDLER, context);
+        Elements elements = element.select("#List > div");
+        for (int i = 0; i < elements.size(); i++) {
+//            Elements title = elements.get(i).select(".H-theme-font-color_my_red");
+//            Subject subject = new Subject();
+//            subject.setSubjectName(title.text());
+//            subjectService.insert(subject);
+            Elements items = elements.get(i).select(".H-theme-background-color-white");
+            Elements itemList = items.select(".typebtn");
+            for (int j = 0; j < itemList.size(); j++) {
+                String itemUrl = "http://hs.hanbinglianai.com" + itemList.get(j).attr("href");
+//                SubjectItem subjectItem = new SubjectItem();
+//                subjectItem.setSubjectId(subject.getId());
+//                subjectItem.setSubjectItemName(itemList.get(j).text());
+//                subjectItemService.insert(subjectItem);
+                HttpGet get = new HttpGet(itemUrl);
+                Element itemElement = client.execute(get, ResponseHandlers.ELEMENT_RESPONSE_HANDLER, context);
+                String subjectName = itemList.get(j).text();
+                Elements itemElements = itemElement.select(".wz1");
+                for (int k = 0; k < itemElements.size(); k++) {
+                    Element temp = itemElements.get(k);
+                    String theme = temp.select(".H-theme-font-color1").text();
+                    SubjectItemContent subjectItemContent = new SubjectItemContent();
+                    subjectItemContent.setContent(temp.select(".wz1wz").text());
+                    subjectItemContent.setMd5(MD5Util.getMD532(subjectItemContent.getContent() + theme));
+                    SubjectItemContent content = subjectItemContentService.findByMd5(MD5Util.getMD532(subjectName + subjectItemContent.getContent() + theme));
+                    subjectItemContentService.updateCanShow(content.getId(), "1");
                 }
             }
 
