@@ -12,6 +12,12 @@
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean id="printArgsInterceptor" class="wt.interceptor.PrintArgsInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
     <!-- 注解 -->
     <mvc:annotation-driven/>

@@ -3,9 +3,10 @@ package wt.interceptor;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
+import org.slf4j.MDC;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import wt.utils.IDUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,17 +18,17 @@ import java.util.Date;
 /**
  * Created by Administrator on 2019/1/27 0027.
  */
-@Component
 public class PrintArgsInterceptor extends HandlerInterceptorAdapter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PrintArgsInterceptor.class);
+    private IDUtil idUtil = new IDUtil();
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // 所有请求第一个进入的方法
         String reqURL = request.getRequestURL().toString();
         String ip = request.getRemoteHost();
-
+        MDC.put("requestNo", String.valueOf(idUtil.nextId()));
 
         InputStream is = request.getInputStream();
         StringBuilder responseStrBuilder = new StringBuilder();
