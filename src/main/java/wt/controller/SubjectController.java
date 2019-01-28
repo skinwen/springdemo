@@ -75,10 +75,17 @@ public class SubjectController extends AbstractController {
         if (StringUtils.isEmpty(keyword)) {
             throw new BusinessException(ErrorCode.KEYWORD_NOT_EMPTY);
         }
+        List<SubjectItemContent> list = subjectItemContentService.findList(keyword);
+
         if (!SessionUtil.getHasCharge()) {
-            throw new BusinessException(ErrorCode.HAS_NOT_CHARGE);
+            list.forEach((itemContent) -> {
+                itemContent.setContent("✱✱✱✱✱✱✱✱✱请点击查看✱✱✱✱✱✱✱✱✱...");
+                itemContent.setTheme("✱✱✱✱✱✱✱✱");
+                itemContent.setCanShow("false");
+            });
+            return list;
         } else {
-            return subjectItemContentService.findList(keyword);
+            return list;
         }
     }
 
