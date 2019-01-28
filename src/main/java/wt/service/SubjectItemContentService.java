@@ -34,4 +34,8 @@ public class SubjectItemContentService {
     public void updateCanShow(Long id, String value) {
         contentDao.updateCanShow(id, value);
     }
+
+    public List<SubjectItemContent> findList(String keyword) {
+        return contentDao.findList(keyword);
+    }
 }

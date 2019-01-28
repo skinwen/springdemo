@@ -15,4 +15,6 @@ public interface SubjectItemContentDao {
     SubjectItemContent findByItemIdMd5(@Param("md5") String md5);
 
     void updateCanShow(@Param("id") Long id, @Param("canShow") String canShow);
+
+    List<SubjectItemContent> findList(@Param("keyword") String keyword);
 }

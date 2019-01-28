@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import wt.consts.ErrorCode;
+import wt.exceptions.BusinessException;
 import wt.model.dto.SubjectDto;
 import wt.model.po.SubjectItemContent;
 import wt.model.po.SubjectScreen;
@@ -64,6 +66,19 @@ public class SubjectController extends AbstractController {
                 }
             }
             return result;
+        }
+    }
+
+    @RequestMapping(path = "findList.json", name = "查询", method = RequestMethod.GET)
+    @ResponseBody
+    public List<SubjectItemContent> findList(String keyword) {
+        if (StringUtils.isEmpty(keyword)) {
+            throw new BusinessException(ErrorCode.KEYWORD_NOT_EMPTY);
+        }
+        if (!SessionUtil.getHasCharge()) {
+            throw new BusinessException(ErrorCode.HAS_NOT_CHARGE);
+        } else {
+            return subjectItemContentService.findList(keyword);
         }
     }
 

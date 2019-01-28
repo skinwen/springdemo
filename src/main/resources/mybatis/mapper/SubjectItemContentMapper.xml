@@ -45,4 +45,12 @@
         SET can_show = #{canShow}
         WHERE id = #{id}
     </update>
+
+
+    <select id="findList" resultType="wt.model.po.SubjectItemContent">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM subject_item_content
+        where theme like '%${keyword}%' OR content like '%${keyword}%'
+    </select>
 </mapper>
