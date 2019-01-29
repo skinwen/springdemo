@@ -41,10 +41,12 @@ public class SessionUtil {
 
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         HttpSession session = request.getSession();
+        String value = null;
         if (session != null) {
-            return (String) session.getAttribute(SessionConst.RANDOMCODEKEY);
+            value= (String) session.getAttribute(SessionConst.RANDOMCODEKEY);
         }
-        return null;
+        LOGGER.info("verifyCode:{}",value);
+        return value;
     }
 
 

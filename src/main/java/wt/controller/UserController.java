@@ -61,6 +61,7 @@ public class UserController extends AbstractController {
     @RequestMapping(value = "/login.json", method = RequestMethod.POST, name = "登录")
     @ResponseBody
     public void login(String mobileNo, String password, String verifyCode) {
+        logger.info("mobileNo:{},password:{},verifyCode:{}", verifyCode);
         if (Objects.equals(SessionUtil.getVerifyCode(), verifyCode)) {
             UserInfo userInfo = userService.findByMobileNo(mobileNo);
             if (userInfo != null && Objects.equals(userInfo.getPassword(), password)) {
