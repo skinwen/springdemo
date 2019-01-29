@@ -18,4 +18,6 @@ public interface UserInfoDao {
     void insert(UserInfo userInfo);
 
     void modifyPwd(UserInfo userInfo);
+
+    UserInfo findById(Long id);
 }

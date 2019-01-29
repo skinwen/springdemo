@@ -20,9 +20,9 @@ public class SessionUtil {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         HttpSession session = request.getSession();
         if (session != null) {
-            String userId = (String) session.getAttribute(SessionConst.USER_ID);
+            Long userId = (Long) session.getAttribute(SessionConst.USER_ID);
             LOGGER.info("userId :{}", userId);
-            if (!StringUtils.isEmpty(userId)) {
+            if (userId != null && userId != 0) {
                 return true;
             }
         }
@@ -77,6 +77,14 @@ public class SessionUtil {
             }
         } else {
             return false;
+        }
+    }
+
+    public static void login(Long userId) {
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        HttpSession session = request.getSession();
+        if (session != null) {
+            session.setAttribute(SessionConst.USER_ID, userId);
         }
     }
 }

@@ -48,4 +48,9 @@
             id=#{id}
         </where>
     </update>
+
+    <select id="findById" resultType="UserInfo">
+        SELECT <include refid="allColumn"/>
+        FROM user_info WHERE id=#{id}
+    </select>
 </mapper>

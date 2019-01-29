@@ -17,6 +17,12 @@
             <mvc:mapping path="/**"/>
             <bean id="printArgsInterceptor" class="wt.interceptor.PrintArgsInterceptor"/>
         </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/user/logout.json"/>
+            <mvc:mapping path="/user/modifyPwd.json"/>
+            <mvc:mapping path="/user/userInfo.json"/>
+            <bean class="wt.interceptor.LogincheckInterceptor"/>
+        </mvc:interceptor>
     </mvc:interceptors>
 
     <!-- 注解 -->

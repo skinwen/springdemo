@@ -7,10 +7,10 @@ import lombok.Data;
 public class UserInfo extends BaseModel{
 
     private String mobileNo;
-
+    @JSONField(serialize = false)
     private String password;
 
-    @JSONField(deserialize = false)
+    @JSONField(serialize = false)
     private Integer hasCharge;
 
 

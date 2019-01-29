@@ -14,6 +14,7 @@ import wt.utils.SessionUtil;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -99,5 +100,13 @@ public class UserController extends AbstractController {
                 throw new BusinessException(ErrorCode.USERNAME_OR_PWD_ERROR);
             }
         }
+    }
+
+    @RequestMapping(value = "userInfo.json", method = RequestMethod.GET, name = "userInfo信息")
+    @ResponseBody
+    public UserInfo sessionInfo(HttpSession session) {
+        Long userId = (Long) session.getAttribute(SessionConst.USER_ID);
+        UserInfo userInfo = userService.findById(userId);
+        return userInfo;
     }
 }

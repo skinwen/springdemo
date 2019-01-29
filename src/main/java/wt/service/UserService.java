@@ -34,4 +34,8 @@ public class UserService {
     public void updatePwd(UserInfo para) {
         userInfoDao.modifyPwd(para);
     }
+
+    public UserInfo findById(Long id){
+        return userInfoDao.findById(id);
+    }
 }
